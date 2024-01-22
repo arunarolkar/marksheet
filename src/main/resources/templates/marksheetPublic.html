@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Marksheet</title>
+
+    <script>
+        $(document).ready(function ()
+        {
+             var totalMarks = calculateColumn(4);
+             var obtainedMarks = calculateColumn(5);
+             var percentage = obtainedMarks/totalMarks*100;
+
+             $('#lblTotal').text('Marks = ' + obtainedMarks +'/'+ totalMarks);
+             $('#lblPercentage').text('Percentage = ' + percentage.toFixed(2) + '%');
+        });
+        function calculateColumn(index)
+        {
+            var total = 0;
+            $('table tr').each(function ()
+            {
+                var value = parseInt($('td', this).eq(index).text());
+                if (!isNaN(value)) {
+                    total += value;
+                }
+            });
+            return total;
+        }
+    </script>
+
+</head>
+<body>
+<div align="center">
+    <table>
+        <tr>
+            <td><h3 align="right"> Name of Student: </h3></td>
+            <td><h3 th:text="${student.lastName + ' ' + student.firstName + ' ' + student.fatherName + ' ' + student.motherName}"></h3></td>
+
+        </tr>
+        <tr>
+            <td><h3 align="right">Seat No :</h3></td>
+            <td><h3 th:text="${student.seatNo}"></h3></td>
+        </tr>
+    </table>
+
+    <br><br>
+
+    <table border="1">
+        <tr>
+            <th> Sr. No.</th>
+            <th> Subject Code </th>
+            <th> Subject Name </th>
+            <th> Min Marks </th>
+            <th> Max Marks </th>
+            <th> Obtained Marks </th>
+        </tr>
+
+        <tr th:each="marksheetDet, iterStatus : ${ListMarksheetDet}">
+            <td slign="right" th:text="${iterStatus.index + 1}">  </td>
+            <td th:text="${subjectRepo.getReferenceById(marksheetDet.idSubject).code}">  </td>
+            <td th:text="${subjectRepo.getReferenceById(marksheetDet.idSubject).name}"> Core Java </td>
+            <td th:text="${subjectRepo.getReferenceById(marksheetDet.idSubject).minMarks}" align="right">  </td>
+            <td th:text="${subjectRepo.getReferenceById(marksheetDet.idSubject).maxMarks}" align="right">  </td>
+            <td th:text="${marksheetDet.marks}" align="right">  </td>
+        </tr>
+    </table>
+
+    <h3 id="lblTotal"></h3>
+    <h3 id="lblPercentage"></h3>
+</div>
+</body>
+</html>

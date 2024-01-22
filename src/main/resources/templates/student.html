@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Student Data</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/fonts/fontawesome-all.min.css">
+    <script src="/assets/js/jquery.js"></script>
+
+
+
+    <script>
+        function filterTbl(input) {
+		  var input, filter, table, tr, td, cell, i, j;
+		  input = document.getElementById("tSearch");
+		  filter = input.value.toUpperCase();
+		  table = document.getElementById("tbl");
+		  tr = table.getElementsByTagName("tr");
+		  for (i = 1; i < tr.length; i++) {
+		    // Hide the row initially.
+		    tr[i].style.display = "none";
+
+		    td = tr[i].getElementsByTagName("td");
+		    for (var j = 0; j < td.length; j++) {
+		      cell = tr[i].getElementsByTagName("td")[j];
+		      if (cell) {
+		        if (cell.innerHTML.toUpperCase().indexOf(filter) > -1) {
+		          tr[i].style.display = "";
+		          break;
+		        }
+		      }
+		    }
+		  }
+		}
+
+		function showData(firtName, lastName, fatherName, motherName, seatNo)
+		{
+            $('#firstName').val(firtName);
+            $('#lastName').val(lastName);
+            $('#fatherName').val(fatherName);
+            $('#motherName').val(motherName);
+            $('#seatNo').val(seatNo);
+        }
+
+    </script>
+
+
+</head>
+
+<body style="background: var(--bs-gray-500);">
+    <div class="modal fade" role="dialog" tabindex="-1" id="registrationModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background: linear-gradient(var(--bs-green) 13%, rgb(103,175,141) 82%, rgb(174,212,194) 100%, rgb(51,148,103) 100%, white 100%);border-style: solid;">
+                    <h4 class="modal-title"><strong><span style="text-decoration: underline;">STUDENT DATA</span></strong></h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="background: var(--bs-success);border-style: solid;">
+                    <form method="post" enctype="multipart/form-data" action="/admin/students/save/" th:object="${Student}">
+                        <input class="form-control" type="text" id="firstName" name="firstName" placeholder="Enter First Name" required="">
+                        <input class="form-control" type="text" id="lastName" required="" name="lastName" placeholder="Enter Last Name">
+                        <input class="form-control" type="text" id="fatherName" name="fatherName" placeholder="Enter Father Name" required="">
+                        <input class="form-control" type="text" id="motherName" required="" name="motherName" placeholder="Enter Mother Name">
+                        <input class="form-control" type="text" id="seatNo" required="" name="seatNo" placeholder="Enter Seat Number">
+
+                </div>
+                <div class="modal-footer" style="background: linear-gradient(var(--bs-green) 12%, rgb(49,147,102) 43%, rgb(104,176,143) 71%, rgb(116,182,152) 99%, white 100%, rgb(160,205,185) 100%);border-style: solid;"><button class="btn btn-light" type="reset" data-bs-dismiss="modal">Clear</button><button class="btn btn-primary" type="submit">Save</button></div>
+            </div>
+            </form>
+        </div>
+    </div>
+        <button class="btn btn-success" type="button" style="margin: 20px;" data-bs-target="#registrationModal" data-bs-toggle="modal">
+            <i class="fas fa-plus"></i>&nbsp; NEW</button>
+            <input type="text" id="tSearch" onkeydown="filterTbl()">
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive" style="background: var(--bs-gray-500);border-style: solid;border-color: var(--bs-black);">
+                <table class="table" id="tbl">
+                    <thead>
+                        <tr style="border-style: solid;border-color: var(--bs-black);background: linear-gradient(black 19%, rgb(2,21,48) 32%, rgb(6,52,119) 51%, rgb(16,98,220) 55%, var(--bs-blue) 56%, rgb(27,57,100) 61%, var(--bs-table-color) 85%), var(--bs-blue);color: var(--bs-card-bg);">
+                            <th class="text-center" style="text-align: center;background: linear-gradient(black 19%, rgb(2,21,48) 32%, rgb(6,52,119) 51%, rgb(16,98,220) 55%, var(--bs-blue) 56%, rgb(27,57,100) 61%, var(--bs-table-color) 85%), var(--bs-blue);font-weight: bold;color: var(--bs-card-bg);border-style: solid;border-color: var(--bs-black);">ID</th>
+                            <th class="text-center" style="text-align: center;background: linear-gradient(black 19%, rgb(2,21,48) 32%, rgb(6,52,119) 51%, rgb(16,98,220) 55%, var(--bs-blue) 56%, rgb(27,57,100) 61%, var(--bs-table-color) 85%), var(--bs-blue);font-weight: bold;color: var(--bs-card-bg);border-style: solid;border-color: var(--bs-black);">Seat No.</th>
+                            <th class="text-center" style="text-align: center;background: linear-gradient(black 19%, rgb(2,21,48) 32%, rgb(6,52,119) 51%, rgb(16,98,220) 55%, var(--bs-blue) 56%, rgb(27,57,100) 61%, var(--bs-table-color) 85%), var(--bs-blue);font-weight: bold;color: var(--bs-card-bg);border-style: solid;border-color: var(--bs-black);">Full Name</th>
+                            <th class="text-center" style="background: linear-gradient(black 19%, rgb(2,21,48) 32%, rgb(6,52,119) 51%, rgb(16,98,220) 55%, var(--bs-blue) 56%, rgb(27,57,100) 61%, var(--bs-table-color) 85%), var(--bs-blue);border-style: solid;border-color: var(--bs-black);color: var(--bs-card-bg);">Mother Name</th>
+                            <th class="text-center" style="text-align: center;background: linear-gradient(black 19%, rgb(2,21,48) 32%, rgb(6,52,119) 51%, rgb(16,98,220) 55%, var(--bs-blue) 56%, rgb(27,57,100) 61%, var(--bs-table-color) 85%), var(--bs-blue);font-weight: bold;color: var(--bs-card-bg);border-style: solid;border-color: var(--bs-black);">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="stud : ${list}">
+                            <td th:text="${stud.id}" class="text-end" style="font-weight: bold;border-style: solid;border-color: var(--bs-black);background: var(--bs-cyan);">1</td>
+                            <td th:text="${stud.seatNo}" class="text-center" style="font-weight: bold;border-style: solid;border-color: var(--bs-black);background: var(--bs-cyan);">B030493</td>
+                            <td  th:text="${stud.lastName + ' ' + stud.firstName + ' ' + stud.fatherName}" class="text-center" style="font-weight: bold;border-color: var(--bs-black);background: var(--bs-cyan);">Arolkar Arun Balkrishna</td>
+                            <td th:text="${stud.motherName}" class="text-center" style="font-weight: bold;border-style: solid;border-color: var(--bs-black);background: var(--bs-cyan);">Savita</td>
+                            <td class="text-center" style="font-weight: bold;border-style: solid;border-color: var(--bs-black);background: var(--bs-cyan);">
+
+                                <button class="btn btn-primary text-center" type="button" data-bs-target="#registrationModal" data-bs-toggle="modal" th:onclick="showData([[${stud.firstName}]], [[${stud.lastName}]], [[${stud.fatherName}]], [[${stud.motherName}]], [[${stud.seatNo}]])">EDIT&nbsp;&nbsp;
+                                    <i class="fas fa-pencil-alt"></i>
+                                </button>
+                                <div class="btn-group" role="group">
+                                    <a th:href="@{/admin/students/delete/{id}/(id=${stud.id})}" class="btn btn-danger" role="button" style="border-style: solid;border-color: var(--bs-black);">DELETE&nbsp; &nbsp;
+                                        <i class="far fa-trash-alt"></i></a>
+                                    <a th:href="@{/admin/marksheets/{idStud}/(idStud=${stud.id})}" class="btn btn-success" role="button" style="border-color: var(--bs-black);">MARKSHEET&nbsp; &nbsp;
+                                        <i class="far fa-newspaper"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr></tr>
+                    </tbody>
+                </table>
+            </div>
+            <nav class="text-center d-flex d-lg-flex justify-content-md-center justify-content-lg-center" style="text-align: center;">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h1 align="center">Welcome to our website</h1>
+<h3 align="center" style="color:red" th:text="${msg}"></h3>
+<hr>
+<script th:inline="javascript">
+    var str = [[${msg}]];
+    if(str != null)
+    {
+    alert(str);
+    }
+</script>
+
+<h4 align="center">Enter Seat Number and Mother Name and Click SEARCH buttom to see Marksheet</h4>
+
+<div align="center">
+<form method="post" action="/public/find/">
+  <input type="text" name="seatNo" placeholder="Seat No.">
+  <input type="text" name="motherName" placeholder="Mother Name">
+  <input type="submit" value="SEARCH">
+  <input type="reset" value="CLEAR">
+</form>
+</div>
+</body>
+</html>

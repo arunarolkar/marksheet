@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Subject Data</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/fonts/fontawesome-all.min.css">
+    <script src="/assets/js/jquery.js"></script>
+
+
+    <script>
+        function filterTbl(input)
+        {
+		  var input, filter, table, tr, td, cell, i, j;
+		  input = document.getElementById("tSearch");
+		  filter = input.value.toUpperCase();
+		  table = document.getElementById("tbl");
+		  tr = table.getElementsByTagName("tr");
+		  for (i = 1; i < tr.length; i++)
+		  {
+		    // Hide the row initially.
+		    tr[i].style.display = "none";
+
+		    td = tr[i].getElementsByTagName("td");
+		    for (var j = 0; j < td.length; j++)
+		    {
+		      cell = tr[i].getElementsByTagName("td")[j];
+		      if (cell)
+		      {
+		        if (cell.innerHTML.toUpperCase().indexOf(filter) > -1)
+		         {
+		          tr[i].style.display = "";
+		          break;
+		        }
+		      }
+		    }
+		  }
+		}
+
+		function showData(subjectName, subjectCode, minMarks, maxMarks)
+		{
+            $('#subjectName').val(subjectName);
+            $('#subjectCode').val(subjectCode);
+            $('#minMarks').val(minMarks);
+            $('#maxMarks').val(maxMarks);
+        }
+		</script>
+</head>
+
+<body style="background: var(--bs-cyan);">
+    <div class="card">
+        <div class="modal fade" role="dialog" tabindex="-1" id="registrationModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background: #f4db60;">
+                        <h4 class="modal-title" style="font-weight: bold;text-decoration: underline;text-align: center;">SUBJECT DATA</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="background: #f9e27f;">
+                        <form method="post" action="/admin/subjects/save/" th:object="${Subject}">
+                            <input class="form-control" type="text" id="subjectName" placeholder="Enter Subject Name" name="name" style="width: 460px;">
+                        <input type="text" id="subjectCode" placeholder="Enter Subject Code" name="code" style="width: 460px;padding: 6px 12px;height: 38px;">
+                        <input type="text" id="minMarks" name="minMarks" placeholder="Enter Minimum Marks" style="width: 460px;height: 38px;padding: 6px 12px;">
+                        <input type="text" id="maxMarks" style="width: 460px;height: 38px;padding: 6px 12px;" name="maxMarks" placeholder="Enter Maximum Marks">
+                    </div>
+                    <div class="modal-footer" style="background: #f4db60;">
+                        <button class="btn btn-light" type="reset" data-bs-dismiss="modal">CLEAR</button>
+                        <button class="btn btn-primary" type="submit">SAVE</button></div>
+                </div>
+                </form>
+            </div>
+        </div>
+        <button class="btn btn-success" type="button" style="margin: 10px;width: 100px;" data-bs-target="#registrationModal" data-bs-toggle="modal">NEW&nbsp;&nbsp;
+        <i class="fas fa-plus"></i></button>
+        <input id="tSearch" type="text" style="width: 189px;margin-left: 150px;margin-top: -39px;" name="tSearch" onkeydown="filterTbl()">
+        <div class="card-body" style="margin: 10px;border-style: solid;border-color: var(--bs-black);">
+            <div class="table-responsive" style="border-style: solid;">
+                <table class="table" id="tbl">
+                    <thead>
+                        <tr>
+                            <th style="background: linear-gradient(var(--bs-blue) 4%, rgb(38,125,253) 19%, rgb(68,143,253) 32%, rgb(95,159,253) 48%, rgb(135,183,254) 68%, rgb(158,197,254) 85%, white), var(--bs-info);text-align: center;font-weight: bold;color: var(--bs-black);border-style: solid;border-color: var(--bs-black);">ID</th>
+                            <th style="background: linear-gradient(var(--bs-blue) 4%, rgb(38,125,253) 19%, rgb(68,143,253) 32%, rgb(95,159,253) 48%, rgb(135,183,254) 68%, rgb(158,197,254) 85%, white), var(--bs-info);text-align: center;font-weight: bold;color: var(--bs-black);border-style: solid;border-color: var(--bs-black);">Subject Name</th>
+                            <th style="background: linear-gradient(var(--bs-blue) 4%, rgb(38,125,253) 19%, rgb(68,143,253) 32%, rgb(95,159,253) 48%, rgb(135,183,254) 68%, rgb(158,197,254) 85%, white), var(--bs-info);text-align: center;font-weight: bold;color: var(--bs-black);border-style: solid;border-color: var(--bs-black);">Subject Code</th>
+                            <th style="background: linear-gradient(var(--bs-blue) 4%, rgb(38,125,253) 19%, rgb(68,143,253) 32%, rgb(95,159,253) 48%, rgb(135,183,254) 68%, rgb(158,197,254) 85%, white), var(--bs-info);text-align: center;font-weight: bold;color: var(--bs-black);border-style: solid;border-color: var(--bs-black);">Min Marks</th>
+                            <th style="background: linear-gradient(var(--bs-blue) 4%, rgb(38,125,253) 19%, rgb(68,143,253) 32%, rgb(95,159,253) 48%, rgb(135,183,254) 68%, rgb(158,197,254) 85%, white), var(--bs-info);text-align: center;font-weight: bold;color: var(--bs-black);border-style: solid;border-color: var(--bs-black);">Max Marks</th>
+                            <th style="background: linear-gradient(var(--bs-blue) 4%, rgb(38,125,253) 19%, rgb(68,143,253) 32%, rgb(95,159,253) 48%, rgb(135,183,254) 68%, rgb(158,197,254) 85%, white), var(--bs-info);text-align: center;font-weight: bold;color: var(--bs-black);border-style: solid;border-color: var(--bs-black);">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="sub : ${list}">
+                            <td th:text="${sub.id}" style="background: #e0ddbc;font-weight: bold;text-align: center;border-style: solid;border-color: var(--bs-black);">1</td>
+                            <td th:text="${sub.name}" style="background: #e0ddbc;font-weight: bold;text-align: center;border-style: solid;border-color: var(--bs-black);">Core Java</td>
+                            <td th:text="${sub.code}" style="background: #e0ddbc;font-weight: bold;text-align: center;border-style: solid;border-color: var(--bs-black);">CJ</td>
+                            <td th:text="${sub.minMarks}" style="background: #e0ddbc;font-weight: bold;text-align: center;border-style: solid;border-color: var(--bs-black);">35</td>
+                            <td th:text="${sub.maxMarks}" style="background: #e0ddbc;font-weight: bold;text-align: center;border-style: solid;border-color: var(--bs-black);">100</td>
+                            <td style="background: #e0ddbc;font-weight: bold;text-align: center;border-style: solid;border-color: var(--bs-black);">
+                                <div class="btn-group" role="group" style="text-align: center;">
+                                    <button class="btn btn-primary" type="button" data-bs-target="#registrationModal" data-bs-toggle="modal" th:onclick="showData([[${sub.name}]], [[${sub.code}]], [[${sub.minMarks}]], [[${sub.maxMarks}]])">EDIT&nbsp;
+                                    <i class="fas fa-pencil-alt"></i>&nbsp;</button>
+                                    <a class="btn btn-danger" role="button" th:href="@{/admin/subjects/delete/{id}/(id=${sub.id})}">DELETE&nbsp; <i class="fas fa-trash-alt"></i>&nbsp;</a></div>
+                            </td>
+                        </tr>
+                        <tr></tr>
+                    </tbody>
+                </table>
+            </div>
+            <nav class="d-flex d-sm-flex d-md-flex d-lg-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
