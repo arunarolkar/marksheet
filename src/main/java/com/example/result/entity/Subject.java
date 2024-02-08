@@ -3,8 +3,7 @@ package com.example.result.entity;
 import jakarta.persistence.*;
 
 @Entity
-public class Subject
-{
+public class Subject {
     @Id
     @SequenceGenerator(name = "seq_subject")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_subject")
@@ -27,8 +26,7 @@ public class Subject
         this.maxMarks = maxMarks;
     }
 
-    public Long getId()
-    {
+    public Long getId() {
         return id;
     }
 

@@ -7,6 +7,11 @@
 <body>
 <h1 align="center">Welcome to our website</h1>
 <h3 align="center" style="color:red" th:text="${msg}"></h3>
+
+<div align="right">
+<a href="/login"> Admin Login </a>
+</div>
+
 <hr>
 <script th:inline="javascript">
     var str = [[${msg}]];

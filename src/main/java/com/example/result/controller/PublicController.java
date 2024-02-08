@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/public")
+@RequestMapping("/public/")
 public class PublicController
 {
     @Autowired
@@ -62,6 +62,7 @@ public class PublicController
                 model.addAttribute("subjectRepo", subjectRepo);
             }
             page = "marksheetPublic";
+
         }
 
         return page;
